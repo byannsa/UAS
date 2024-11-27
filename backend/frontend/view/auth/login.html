@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id" ng-app="donorApp">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - SetetesDarah</title>
+    <link rel="icon" type="image/png" href="img/logo/bloodicon.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css" />
+    <style>
+      body {
+        object-fit: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-image: url("https://res.cloudinary.com/dk0z4ums3/image/upload/v1686709670/attached_image/cme-skp-seberapa-seringkah-aman-melakukan-donor-darah.jpg");
+      }
+      .login-card {
+        width: 100%;
+        max-width: 400px;
+        padding: 2rem;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .login-header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+      .login-header h2 {
+        color: #d9534f;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body ng-controller="LoginController">
+    <div class="login-card">
+      <div class="login-header">
+        <h2>Login</h2>
+        <p>Silakan login dengan email dan password Anda.</p>
+      </div>
+      <form ng-submit="login()">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email :</label>
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            ng-model="user.email"
+            required />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password :</label>
+          <input
+            type="password"
+            id="password"
+            class="form-control"
+            ng-model="user.password"
+            required />
+        </div>
+        <button type="submit" class="btn btn-danger w-100">Login</button>
+      </form>
+      <div class="text-center mt-3">
+        <p>Belum memiliki akun ? <a href="/register">Daftar disini</a></p>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="/backend/frontend/js/app.js"></script>
+  </body>
+</html>
