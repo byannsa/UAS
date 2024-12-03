@@ -2,17 +2,17 @@
 var app = angular.module('donorApp', []);
 
 // Controller Login
-app.controller('LoginController', ['$scope', '$http', function($scope, $http) {
+app.controller('LoginController', ['$scope', '$http', '$window', function($scope, $http, $window) {
     $scope.user = {};
 
     $scope.register = function() {
         $http.post('/api/register', $scope.user)
             .then(function(response) {
                 alert(response.data.message);
-                window.location.href = '/'; // Redirect ke halaman login
+                $window.location.href = '/'; // Redirect ke halaman login
             })
             .catch(function(error) {
-                alert(error.data.message);
+                alert(error.data.message || 'Terjadi kesalahan saat registrasi.');
             });
     };
 
@@ -20,23 +20,57 @@ app.controller('LoginController', ['$scope', '$http', function($scope, $http) {
         $http.post('/api/login', $scope.user)
             .then(function(response) {
                 alert(response.data.message); // Tampilkan pesan sukses
-                window.location.href = '/home'; // Redirect ke halaman home setelah login
+                localStorage.setItem('userId', response.data.userId); // Simpan ID pengguna ke localStorage
+                $window.location.href = '/home'; // Redirect ke halaman home setelah login
             })
             .catch(function(error) {
-                alert(error.data.message); // Tampilkan pesan error
+                alert(error.data.message || 'Terjadi kesalahan saat login.');
             });
     };
+}]); 
+
+
+app.controller('DonorController', ['$scope', '$http', function($scope, $http) {
+    $scope.donor = {}; // Objek untuk data donor
+    $scope.donorsList = []; // Array untuk menyimpan daftar pendonor
+
+    // Fungsi untuk mendaftarkan pendonor baru
+    $scope.registerDonor = function() {
+        $http.post('/api/registerDonor', $scope.donor)
+            .then(function(response) {
+                alert(response.data.pesan); // Tampilkan pesan sukses
+                $scope.donor = {}; // Reset form
+                $scope.getDonors(); // Refresh daftar pendonor
+            })
+            .catch(function(error) {
+                alert(error.data.pesan || 'Terjadi kesalahan saat mendaftarkan pendonor.');
+            });
+    };
+
+    // Fungsi untuk mengambil daftar pendonor
+    $scope.getDonors = function() {
+        $http.get('/api/getDonors')
+            .then(function(response) {
+                $scope.donorsList = response.data.donors; // Ambil data pendonor dari respons
+            })
+            .catch(function(error) {
+                console.error("Terjadi kesalahan saat mengambil data pendonor:", error);
+                alert("Gagal mengambil data pendonor.");
+            });
+    };
+
+    // Panggil fungsi untuk mengambil daftar pendonor saat controller diinisialisasi
+    $scope.getDonors();
 }]);
 
 // Controller Main
 app.controller('MainController', ['$scope', '$window', '$http', function($scope, $window, $http) {
     // Fungsi untuk logout
-    $scope.confirmLogout = function () {
+    $scope.confirmLogout = function() {
         var isConfirmed = window.confirm("Anda yakin ingin logout?");
         if (isConfirmed) {
-            localStorage.removeItem('userData');
-            sessionStorage.removeItem('userData');
-            $http.get('/logout')  // Mengirim permintaan logout
+            localStorage.removeItem('userId'); // Hapus ID pengguna
+            $http.get('/logout')  // Mengirim permintaan logout ke backend
                 .then(function(response) {
                     alert("Anda telah berhasil logout.");
                     $window.location.href = '/'; // Redirect ke halaman login
@@ -50,15 +84,3 @@ app.controller('MainController', ['$scope', '$window', '$http', function($scope,
         }
     };
 }]);
-
-app.controller('UserProfileController', ['$scope', '$http', function($scope, $http) {
-    $http.get('/api/user')
-        .then(function(response) {
-            $scope.user = response.data;
-        })
-        .catch(function(error) {
-            console.error('Terjadi kesalahan:', error);
-            $scope.errorMessage = 'Tidak dapat mengambil data pengguna.';
-        });
-}]);
-

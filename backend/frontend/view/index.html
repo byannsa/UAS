@@ -68,25 +68,29 @@
                 class="dropdown-menu dropdown-menu-end"
                 aria-labelledby="profileDropdown">
                 <li>
-                    <a class="dropdown-item" href="#">
-                      <ul class="list-unstyled mb-0 mt-2">
-                        <li><strong>Nama :</strong> {{ user.name }}</li>
-                        <li><strong>Email :</strong> {{ user.email }}</li>
-                        <li><strong>No Hp :</strong> {{ user.phone }}</li>
-                        <li>
+                  <a class="dropdown-item">
+                    <ul class="list-unstyled mb-0 mt-2">
+                      <li><strong>Nama :</strong> {{ user.name }}</li>
+                      <li><strong>Email :</strong> {{ user.email }}</li>
+                      <li><strong>No Hp :</strong> {{ user.phone }}</li>
+                      <!-- <li>
                           <strong>Status:</strong>
                           <span class="text-warning" ng-if="user.status === 'Belum Mendonor'">Belum Mendonor</span>
                           <span class="text-success" ng-if="user.status === 'Sudah Mendonor'">Sudah Mendonor</span>
-                        </li>
-                      </ul>
-                    </a>
-                  </li>
-                  
+                        </li> -->
+                    </ul>
+                  </a>
+                </li>
+
                 <li>
                   <hr class="dropdown-divider" />
                 </li>
-                <li><a class="dropdown-item" href="#"></a></li>
-                <li><a class="dropdown-item" href="#" ng-click="confirmLogout()">Logout</a></li>
+                <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                <li>
+                  <a class="dropdown-item" href="#" ng-click="confirmLogout()"
+                    >Logout</a
+                  >
+                </li>
               </ul>
             </li>
           </ul>
@@ -232,55 +236,92 @@
     <section id="FormRegister" class="py-5 bg-light">
       <div class="container">
         <h2 class="text-center mb-4">Formulir Pendaftaran</h2>
-        <form
-          ng-submit=""
-          class="mx-auto shadow-lg p-4 rounded"
-          style="max-width: 500px; background-color: #fff">
-          <div class="mb-3">
-            <label for="name" class="form-label">Nama:</label>
-            <input
-              type="text"
-              id="name"
-              class="form-control"
-              ng-model="formData.name"
-              required />
-          </div>
-          <div class="mb-3">
-            <label for="email" class="form-label">Email:</label>
-            <input
-              type="email"
-              id="email"
-              class="form-control"
-              ng-model="formData.email"
-              required />
-          </div>
-          <div class="mb-3">
-            <label for="bloodGroup" class="form-label">Golongan Darah:</label>
-            <select
-              id="bloodGroup"
-              class="form-select"
-              ng-model="formData.bloodGroup"
-              required>
-              <option value="A">A</option>
-              <option value="B">B</option>
-              <option value="AB">AB</option>
-              <option value="O">O</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="message" class="form-label">Pesan:</label>
-            <textarea
-              id="message"
-              class="form-control"
-              ng-model="formData.message"
-              rows="4"></textarea>
-          </div>
-          <button
-            type="submit"
-            class="btn btn-danger w-100 btn-lg shadow hover-custom">
-            Daftar
-          </button>
-        </form>
+        <div ng-controller="DonorController">
+          <form
+            ng-submit="registerDonor()"
+            class="mx-auto shadow-lg p-4 rounded"
+            style="max-width: 500px; background-color: #fff">
+            <div class="mb-3">
+              <label for="name" class="form-label">Nama:</label>
+              <input
+                type="text"
+                id="name"
+                name="nama"
+                class="form-control"
+                ng-model="donor.nama"
+                required />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email:</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-control"
+                ng-model="donor.email"
+                required />
+            </div>
+            <div class="mb-3">
+              <label for="phone" class="form-label">No. Telepon:</label>
+              <input
+                type="text"
+                id="phone"
+                name="phone"
+                class="form-control"
+                ng-model="donor.phone"
+                required />
+            </div>
+            <div class="mb-3">
+              <label for="golongan" class="form-label">Golongan Darah:</label>
+              <select
+                id="golongan"
+                name="golongan"
+                class="form-select"
+                ng-model="donor.golongan"
+                required>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="AB">AB</option>
+                <option value="O">O</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Pesan:</label>
+              <textarea
+                id="message"
+                name="pesan"
+                class="form-control"
+                ng-model="donor.pesan"
+                rows="4"></textarea>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-danger w-100 btn-lg shadow hover-custom">
+              Daftar
+            </button>
+          </form>
+          <h2>Daftar Pendonor yang Terdaftar</h2>
+          <table border="1">
+            <thead>
+              <tr>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>No. Telepon</th>
+                <th>Golongan Darah</th>
+                <th>Pesan</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="donor in donorsList">
+                <td>{{ donor.nama }}</td>
+                <td>{{ donor.email }}</td>
+                <td>{{ donor.phone }}</td>
+                <td>{{ donor.golongan }}</td>
+                <td>{{ donor.pesan }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
 
