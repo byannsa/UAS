@@ -14,14 +14,14 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=person" />
     <link rel="stylesheet" href="/backend/frontend/css/style.css" />
+    <script src="/backend/frontend/js/app.js"></script>
   </head>
 
   <body ng-controller="MainController">
-    <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-dark position-sticky top-0 bg-danger">
       <div class="container-fluid">
-        <a class="navbar-brand d-flex align-items-center" href="#home">
-          <img src="/backend/frontend/img/bloodicon.png" alt="Logo" style="width: 30px; height: 30px; margin-right: 8px;" />
+        <a class="navbar-brand d-flex align-items-center" href="/backend/frontend/view/index.html">
+          <img src="/backend/frontend/img/bloodicon.png" alt="Logo" style="width: 30px; height: 30px; margin-right: 8px;">
           <strong>SetetesDarah</strong>
         </a>
         <button
@@ -36,177 +36,77 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link active" href="/backend/frontend/view/index.html">Beranda</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/backend/frontend/view/index.html">Tentang</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#register">Pendaftaran</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#gallery">Galeri</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle d-flex align-items-center"
-                href="#"
-                id="profileDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false">
-                <span class="material-symbols-outlined">person</span>
-              </a>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                <li>
-                  <a class="dropdown-item" href="#">
-                    <ul class="list-unstyled mb-0 mt-2">
-                      <li><strong>Nama :</strong> {{ user.name }}</li>
-                      <li><strong>Email :</strong> {{ user.email }}</li>
-                      <li><strong>No Hp :</strong> {{ user.phone }}</li>
-                      <li>
-                        <strong>Status:</strong>
-                        <span class="text-warning" ng-if="user.status === 'Belum Mendonor'">Belum Mendonor</span>
-                        <span class="text-success" ng-if="user.status === 'Sudah Mendonor'">Sudah Mendonor</span>
-                      </li>
-                    </ul>
-                  </a>
-                </li>
-                <li><hr class="dropdown-divider" /></li>
-                <li><a class="dropdown-item" href="#" ng-click="confirmLogout()">Logout</a></li>
-              </ul>
-            </li>
+            <li class="nav-item"><a class="nav-link active" href="/backend/frontend/view/index.html">Beranda</a></li>
+            <li class="nav-item"><a class="nav-link" href="/backend/frontend/view/index.html">Tentang</a></li>
+            <li class="nav-item"><a class="nav-link" href="/backend/frontend/view/index.html">Pendaftaran</a></li>
+            <li class="nav-item"><a class="nav-link" href="/backend/frontend/view/index.html">Galeri</a></li>
           </ul>
         </div>
       </div>
     </nav>
 
-    <!-- Main Section -->
     <section class="py-5">
       <div class="container">
-        <!-- Tombol Unduh Data -->
-        <div class="text-end mb-3">
-          <button class="btn btn-success" ng-click="downloadData()">Unduh Data</button>
+        <h2 class="text-center mb-4"><strong>Profil Donor Darah</strong></h2>
+
+        <div class="d-flex justify-content-between mb-3">
+          <button class="btn btn-primary" ng-click="tambahProfil()">Tambahkan Data</button>
+          <button class="btn btn-success" ng-click="unduhData()">Unduh Data</button>
         </div>
-        <h2 class="text-center mb-4"></h2>
-        <div ng-repeat="profil in profilData" class="profil-container mb-4">
-          <div class="bg-danger text-white p-2"><strong>Data Profil Donor Darah</strong></div>
-          <div class="p-3">
-            <!-- Upload Foto Profil -->
-            <div class="row mb-2 border-bottom pb-2">
-              <label class="col-sm-4"><strong>Foto Profil :</strong></label>
-              <div class="col-sm-8">
-                <img
-                  id="profilePhoto"
-                  src="https://via.placeholder.com/100"
-                  alt="Foto Profil"
-                  class="img-thumbnail mb-2"
-                  style="width: 100px; height: 100px;" />
-                <input type="file" id="photoInput" class="form-control" accept="image/*" />
-              </div>
-            </div>
-            
-            
-            <div class="row mb-2 border-bottom pb-2">
-              <label class="col-sm-4"><strong>Nama :</strong></label>
-              <div class="col-sm-8">{{ profil.nama }}</div>
-            </div>
-            <div class="row mb-2 border-bottom pb-2">
-              <label class="col-sm-4"><strong>Email :</strong></label>
-              <div class="col-sm-8">{{ profil.email }}</div>
-            </div>
-            <div class="row mb-2 border-bottom pb-2">
-              <label class="col-sm-4"><strong>Nomor Telepon :</strong></label>
-              <div class="col-sm-8">{{ profil.noTelepon }}</div>
-            </div>
-            <div class="row mb-2 border-bottom pb-2">
-              <label class="col-sm-4"><strong>Golongan Darah :</strong></label>
-              <div class="col-sm-8">{{ profil.golongan }}</div>
-            </div>
-            <div class="row mb-2 border-bottom pb-2">
-              <label class="col-sm-4"><strong>Pesan :</strong></label>
-              <div class="col-sm-8">{{ profil.pesan }}</div>
-            </div>
-            <div class="text-end mt-2">
-              <button class="btn btn-warning btn-sm me-2" ng-click="editProfil($index)">Edit</button>
-              <button class="btn btn-danger btn-sm" ng-click="hapusProfil($index)">Hapus</button>
-            </div>
-          </div>
+
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped shadow">
+            <thead class="table-danger">
+              <tr>
+                <th class="text-center">No</th>
+                <th class="text-center">Nama</th>
+                <th class="text-center">Email</th>
+                <th class="text-center">No Telepon</th>
+                <th class="text-center">Golongan Darah</th>
+                <th class="text-center">Pesan</th>
+                <th class="text-center">Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="profil in profilData">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ profil.nama }}</td>
+                <td>{{ profil.email }}</td>
+                <td>{{ profil.notelp }}</td>
+                <td>{{ profil.golongan }}</td>
+                <td>{{ profil.pesan }}</td>
+                <td>
+                  <div class="dropdown">
+                    <a
+                      href="#"
+                      class="btn btn-light p-0"
+                      id="aksiDropdown"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                      <i class="fas fa-ellipsis-v"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="aksiDropdown">
+                      <li>
+                        <button class="dropdown-item" ng-click="editProfil($index)">Edit</button>
+                      </li>
+                      <li>
+                        <button class="dropdown-item text-danger" ng-click="hapusProfil($index)">Hapus</button>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
 
-    <!-- AngularJS Script -->
-    <script>
-      const app = angular.module("donorApp", []);
-      app.controller("MainController", function ($scope) {
-        $scope.profilData = [
-          {
-            nama: "Kevin Wijaya",
-            email: "kevin@gmail.com",
-            noTelepon: "081234567890",
-            golongan: "A",
-            pesan: "Siap donor darah",
-          },
-        ];
+    <footer class="footer text-white py-3 bg-danger">
+      <div class="container text-center">
+        <p>&copy; 2024 SetetesDarah. All rights reserved.</p>
+      </div>
+    </footer>
 
-        $scope.editProfil = function (index) {
-          const profil = $scope.profilData[index];
-          const updatedNama = prompt("Edit Nama:", profil.nama);
-          const updatedEmail = prompt("Edit Email:", profil.email);
-          const updatedNoTelepon = prompt("Edit Nomor Telepon:", profil.noTelepon);
-          const updatedGolongan = prompt("Edit Golongan Darah:", profil.golongan);
-          const updatedPesan = prompt("Edit Pesan:", profil.pesan);
-          if (updatedNama && updatedEmail && updatedGolongan && updatedPesan) {
-            $scope.profilData[index] = {
-              nama: updatedNama,
-              email: updatedEmail,
-              noTelepon: updatedNoTelepon,
-              golongan: updatedGolongan,
-              pesan: updatedPesan,
-            };
-          }
-        };
-
-        $scope.hapusProfil = function (index) {
-          if (confirm("Yakin ingin menghapus data ini?")) {
-            $scope.profilData.splice(index, 1);
-          }
-        };
-
-        $scope.uploadFoto = function (index, event) {
-          const file = event.target.files[0];
-          if (file) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-              $scope.$apply(() => {
-                $scope.profilData[index].foto = e.target.result;
-              });
-            };
-            reader.readAsDataURL(file);
-          }
-        };
-
-        $scope.downloadData = function () {
-          const csvHeader = "Nama,Email,Nomor Telepon,Golongan Darah,Pesan\n";
-          const csvContent = $scope.profilData
-            .map((profil) =>
-              `${profil.nama},${profil.email},${profil.noTelepon},${profil.golongan},${profil.pesan}`
-            )
-            .join("\n");
-          const blob = new Blob([csvHeader + csvContent], { type: "text/csv;charset=utf-8;" });
-          const url = URL.createObjectURL(blob);
-
-          const downloadLink = document.createElement("a");
-          downloadLink.href = url;
-          downloadLink.download = "data_profil_donor.csv";
-          downloadLink.click();
-          URL.revokeObjectURL(url);
-        };
-      });
-    </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

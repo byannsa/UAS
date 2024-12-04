@@ -157,8 +157,14 @@ body {
 
 
 .profil-container {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow di belakang elemen */
-  border-radius: 8px; /* Membuat sudut elemen sedikit melengkung */
-  background-color: #fff; /* Pastikan ada background putih agar shadow terlihat */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  border-radius: 8px; 
+  background-color: #fff; 
   }
 
+
+  /* TABEL DATA PROFIL */
+  .table {
+    box-shadow: 100px 40px 550px rgba(0, 0, 0, 0.1), 500px 50px 550px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+  }
