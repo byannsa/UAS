@@ -85,11 +85,7 @@ app.controller('MainController', ['$scope', '$window', '$http', function($scope,
     };
 }]);
 
-
-
-
-
-
+// DATA PROFIL
 
 app.controller("MainController", function ($scope) {
   $scope.profilData = [
