@@ -156,5 +156,9 @@ body {
 }
 
 
-
+.profil-container {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow di belakang elemen */
+  border-radius: 8px; /* Membuat sudut elemen sedikit melengkung */
+  background-color: #fff; /* Pastikan ada background putih agar shadow terlihat */
+  }
 
