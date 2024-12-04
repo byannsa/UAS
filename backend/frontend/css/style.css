@@ -1,8 +1,14 @@
-body {
+html, body {
+  height: 100%; /* Pastikan body memiliki tinggi penuh */
+  margin: 0;    /* Hapus margin default */
+  display: flex;
+  flex-direction: column;
   font-family: Arial, sans-serif;
   overflow-x: hidden;
-  line-height: 1.6;
+  line-height: 1.6; /* Atur elemen dalam kolom (vertikal) */
 }
+
+
 
 .hero {
   background: url("/backend/frontend/img/bglogin.jpg");
@@ -152,6 +158,7 @@ body {
   border-radius: 8px;
 }
 .footer {
+  margin-top: auto; 
   background-color: #d32f2f;
 }
 
@@ -160,6 +167,10 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
   border-radius: 8px; 
   background-color: #fff; 
+  }
+
+  .container {
+    flex: 1; /* Agar konten utama mengisi ruang yang tersedia */
   }
 
 

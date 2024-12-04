@@ -24,8 +24,8 @@ app.get('/home', (req, res) => {
     res.sendFile(path.join(__dirname, 'frontend/view/index.html'));
 });
 
-app.get('/profile', (req, res) => {
-    res.sendFile(path.join(__dirname, 'frontend/view/profile.html'));
+app.get('/data', (req, res) => {
+    res.sendFile(path.join(__dirname, 'frontend/view/data.html'));
 });
 
 app.get('/register', (req, res) => {
