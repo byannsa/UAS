@@ -1,346 +1,333 @@
 <!DOCTYPE html>
 <html lang="id" ng-app="donorApp">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Beranda - SetetesDarah</title>
-    <link
-      rel="icon"
-      type="image/png"
-      href="/backend/frontend/img/logoweb.png" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=person" />
-    <link rel="stylesheet" href="/backend/frontend/css/style.css" />
-  </head>
 
-  <body ng-controller="MainController">
-    <nav
-      class="navbar navbar-expand-lg navbar-dark position-sticky top-0 bg-danger">
-      <div class="container-fluid">
-        <a class="navbar-brand d-flex align-items-center" href="#home">
-          <img
-            src="/backend/frontend/img/bloodicon.png"
-            alt="Logo"
-            style="width: 30px; height: 30px; margin-right: 8px" />
-          <strong>SetetesDarah</strong>
-        </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link active" href="#home">Beranda</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#about">Tentang</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#register">Pendaftaran</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#gallery">Galeri</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle d-flex align-items-center"
-                href="#"
-                id="profileDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false">
-                <span class="material-symbols-outlined">person</span>
-              </a>
-              <ul
-                class="dropdown-menu dropdown-menu-end"
-                aria-labelledby="profileDropdown">
-                <li>
-                  <a class="dropdown-item">
-                    <ul class="list-unstyled mb-0 mt-2">
-                      <li><strong>Nama :</strong> {{ user.name }}</li>
-                      <li><strong>Email :</strong> {{ user.email }}</li>
-                      <li><strong>No Hp :</strong> {{ user.phone }}</li>
-                      <!-- <li>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beranda - SetetesDarah</title>
+  <link rel="icon" type="image/png" href="/backend/frontend/img/logoweb.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=person" />
+  <link rel="stylesheet" href="/backend/frontend/css/style.css" />
+</head>
+
+<body ng-controller="MainController">
+  <nav class="navbar navbar-expand-lg navbar-dark position-sticky top-0 bg-danger">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="#home">
+        <img src="/backend/frontend/img/bloodicon.png" alt="Logo"
+          style="width: 30px; height: 30px; margin-right: 8px" />
+        <strong>SetetesDarah</strong>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#home">Beranda</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">Tentang</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#FormRegister">Pendaftaran</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#gallery">Galeri</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <span class="material-symbols-outlined">person</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+              <li>
+                <a class="dropdown-item">
+                  <ul class="list-unstyled mb-0 mt-2">
+                    <li><strong>Nama :</strong> {{ user.name }}</li>
+                    <li><strong>Email :</strong> {{ user.email }}</li>
+                    <li><strong>No Hp :</strong> {{ user.phone }}</li>
+                    <!-- <li>
                           <strong>Status:</strong>
                           <span class="text-warning" ng-if="user.status === 'Belum Mendonor'">Belum Mendonor</span>
                           <span class="text-success" ng-if="user.status === 'Sudah Mendonor'">Sudah Mendonor</span>
                         </li> -->
-                    </ul>
-                  </a>
-                </li>
+                  </ul>
+                </a>
+              </li>
 
-                <li>
-                  <hr class="dropdown-divider" />
-                </li>
-                <li><a class="dropdown-item" href="/data">Profile</a></li>
-                <li>
-                  <a class="dropdown-item" href="#" ng-click="confirmLogout()"
-                    >Logout</a
-                  >
-                </li>
-              </ul>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li><a class="dropdown-item" href="/data">Profile</a></li>
+              <li>
+                <a class="dropdown-item" href="#" ng-click="confirmLogout()">Logout</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section id="home" class="hero">
+    <div class="container">
+      <h2>Menyelamatkan Nyawa dengan Donor Darah</h2>
+      <p>Jadilah pahlawan bagi mereka yang membutuhkan.</p>
+    </div>
+  </section>
+
+  <section id="about" class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-4">Tentang Donor Darah</h2>
+      <p class="text-center fs-5 text-muted mb-5">
+        Donor darah adalah salah satu tindakan mulia yang bisa menyelamatkan
+        nyawa seseorang. Tidak hanya membantu mereka yang membutuhkan
+        transfusi darah, donor darah juga memberikan manfaat kesehatan bagi
+        pendonornya.
+      </p>
+      <div class="row g-4">
+        <!-- Informasi Statistik -->
+        <div class="col-md-4 text-center">
+          <div class="p-4 bg-white shadow rounded">
+            <h3 class="text-danger display-5">1</h3>
+            <p class="mb-0">
+              Donasi darah dapat menyelamatkan hingga
+              <strong>3 nyawa</strong> sekaligus.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4 text-center">
+          <div class="p-4 bg-white shadow rounded">
+            <h3 class="text-danger display-5">10%</h3>
+            <p class="mb-0">
+              Hanya <strong>10%</strong> orang yang memenuhi syarat menjadi
+              pendonor darah secara rutin.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4 text-center">
+          <div class="p-4 bg-white shadow rounded">
+            <h3 class="text-danger display-5">24 Jam</h3>
+            <p class="mb-0">
+              Pasokan darah harus tersedia setiap saat karena kebutuhan yang
+              mendesak.
+            </p>
+          </div>
+        </div>
+      </div>
+      <hr class="my-5" />
+      <!-- Manfaat Donor Darah -->
+      <h3 class="text-center mb-4">Manfaat Donor Darah</h3>
+      <div class="row">
+        <div class="col-md-6">
+          <ul class="list-group">
+            <li class="list-group-item d-flex align-items-center">
+              <i class="fas fa-heart text-danger me-3"></i>
+              <div>
+                <strong>Meningkatkan kesehatan jantung</strong>
+                <p class="mb-3">
+                  Mengurangi risiko penyakit jantung dengan menurunkan kadar
+                  zat besi dalam tubuh.
+                </p>
+              </div>
+            </li>
+            <li class="list-group-item d-flex align-items-center">
+              <i class="fas fa-tachometer-alt text-danger me-3"></i>
+              <div>
+                <strong>Memperbaiki sirkulasi darah</strong>
+                <p class="mb-3">
+                  Membantu memperbarui sel darah merah yang sehat dalam tubuh.
+                </p>
+              </div>
+            </li>
+            <li class="list-group-item d-flex align-items-center">
+              <i class="fas fa-stethoscope text-danger me-3"></i>
+              <div>
+                <strong>Mengetahui kondisi kesehatan</strong>
+                <p class="mb-3">
+                  Pendonor akan melalui pemeriksaan kesehatan rutin sebelum
+                  mendonorkan darah.
+                </p>
+              </div>
             </li>
           </ul>
         </div>
+        <div class="col-md-6">
+          <img src="https://th.bing.com/th/id/OIP.6MsZEVSVzSdR1_N9va5OwAHaE8?w=259&h=180&c=7&r=0&o=5&dpr=1.8&pid=1.7"
+            alt="Manfaat Donor Darah" class="img-fluid rounded shadow"
+            style="max-width: 100%; height: 305px; width: 700px" />
+        </div>
       </div>
-    </nav>
-
-    <section id="home" class="hero">
-      <div class="container">
-        <h2>Menyelamatkan Nyawa dengan Donor Darah</h2>
-        <p>Jadilah pahlawan bagi mereka yang membutuhkan.</p>
-      </div>
-    </section>
-
-    <section id="about" class="py-5 bg-light">
-      <div class="container">
-        <h2 class="text-center mb-4">Tentang Donor Darah</h2>
-        <p class="text-center fs-5 text-muted mb-5">
-          Donor darah adalah salah satu tindakan mulia yang bisa menyelamatkan
-          nyawa seseorang. Tidak hanya membantu mereka yang membutuhkan
-          transfusi darah, donor darah juga memberikan manfaat kesehatan bagi
-          pendonornya.
-        </p>
-        <div class="row g-4">
-          <!-- Informasi Statistik -->
-          <div class="col-md-4 text-center">
-            <div class="p-4 bg-white shadow rounded">
-              <h3 class="text-danger display-5">1</h3>
-              <p class="mb-0">
-                Donasi darah dapat menyelamatkan hingga
-                <strong>3 nyawa</strong> sekaligus.
-              </p>
-            </div>
-          </div>
-          <div class="col-md-4 text-center">
-            <div class="p-4 bg-white shadow rounded">
-              <h3 class="text-danger display-5">10%</h3>
-              <p class="mb-0">
-                Hanya <strong>10%</strong> orang yang memenuhi syarat menjadi
-                pendonor darah secara rutin.
-              </p>
-            </div>
-          </div>
-          <div class="col-md-4 text-center">
-            <div class="p-4 bg-white shadow rounded">
-              <h3 class="text-danger display-5">24 Jam</h3>
-              <p class="mb-0">
-                Pasokan darah harus tersedia setiap saat karena kebutuhan yang
-                mendesak.
-              </p>
-            </div>
+      <hr class="my-5" />
+      <!-- Proses Donor Darah -->
+      <h3 class="text-center mb-4">Bagaimana Proses Donor Darah?</h3>
+      <div class="row text-center">
+        <div class="col-md-3">
+          <div class="p-4 bg-white shadow rounded">
+            <i class="fas fa-clipboard-list display-3 text-danger mb-2"></i>
+            <h5>1. Registrasi</h5>
+            <p class="mb-0">
+              Isi formulir data diri dan lakukan pemeriksaan awal.
+            </p>
           </div>
         </div>
-        <hr class="my-5" />
-        <!-- Manfaat Donor Darah -->
-        <h3 class="text-center mb-4">Manfaat Donor Darah</h3>
-        <div class="row">
-          <div class="col-md-6">
-            <ul class="list-group">
-              <li class="list-group-item d-flex align-items-center">
-                <i class="fas fa-heart text-danger me-3"></i>
-                <div>
-                  <strong>Meningkatkan kesehatan jantung</strong>
-                  <p class="mb-3">
-                    Mengurangi risiko penyakit jantung dengan menurunkan kadar
-                    zat besi dalam tubuh.
-                  </p>
-                </div>
-              </li>
-              <li class="list-group-item d-flex align-items-center">
-                <i class="fas fa-tachometer-alt text-danger me-3"></i>
-                <div>
-                  <strong>Memperbaiki sirkulasi darah</strong>
-                  <p class="mb-3">
-                    Membantu memperbarui sel darah merah yang sehat dalam tubuh.
-                  </p>
-                </div>
-              </li>
-              <li class="list-group-item d-flex align-items-center">
-                <i class="fas fa-stethoscope text-danger me-3"></i>
-                <div>
-                  <strong>Mengetahui kondisi kesehatan</strong>
-                  <p class="mb-3">
-                    Pendonor akan melalui pemeriksaan kesehatan rutin sebelum
-                    mendonorkan darah.
-                  </p>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div class="col-md-6">
-            <img
-              src="https://th.bing.com/th/id/OIP.6MsZEVSVzSdR1_N9va5OwAHaE8?w=259&h=180&c=7&r=0&o=5&dpr=1.8&pid=1.7"
-              alt="Manfaat Donor Darah"
-              class="img-fluid rounded shadow"
-              style="max-width: 100%; height: 305px; width: 700px" />
+        <div class="col-md-3">
+          <div class="p-4 bg-white shadow rounded">
+            <i class="fas fa-heartbeat display-3 text-danger mb-2"></i>
+            <h5>2. Pemeriksaan</h5>
+            <p class="mb-0">
+              Cek kesehatan untuk memastikan Anda memenuhi syarat.
+            </p>
           </div>
         </div>
-        <hr class="my-5" />
-        <!-- Proses Donor Darah -->
-        <h3 class="text-center mb-4">Bagaimana Proses Donor Darah?</h3>
-        <div class="row text-center">
-          <div class="col-md-3">
-            <div class="p-4 bg-white shadow rounded">
-              <i class="fas fa-clipboard-list display-3 text-danger mb-2"></i>
-              <h5>1. Registrasi</h5>
-              <p class="mb-0">
-                Isi formulir data diri dan lakukan pemeriksaan awal.
-              </p>
-            </div>
+        <div class="col-md-3">
+          <div class="p-4 bg-white shadow rounded">
+            <i class="fas fa-tint display-3 text-danger mb-2"></i>
+            <h5>3. Donasi Darah</h5>
+            <p class="mb-0">
+              Darah Anda akan diambil dalam waktu sekitar 10-15 menit.
+            </p>
           </div>
-          <div class="col-md-3">
-            <div class="p-4 bg-white shadow rounded">
-              <i class="fas fa-heartbeat display-3 text-danger mb-2"></i>
-              <h5>2. Pemeriksaan</h5>
-              <p class="mb-0">
-                Cek kesehatan untuk memastikan Anda memenuhi syarat.
-              </p>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="p-4 bg-white shadow rounded">
-              <i class="fas fa-tint display-3 text-danger mb-2"></i>
-              <h5>3. Donasi Darah</h5>
-              <p class="mb-0">
-                Darah Anda akan diambil dalam waktu sekitar 10-15 menit.
-              </p>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="p-4 bg-white shadow rounded">
-              <i class="fas fa-coffee display-3 text-danger mb-2"></i>
-              <h5>4. Pemulihan</h5>
-              <p class="mb-0">
-                Nikmati makanan ringan untuk mengembalikan energi.
-              </p>
-            </div>
+        </div>
+        <div class="col-md-3">
+          <div class="p-4 bg-white shadow rounded">
+            <i class="fas fa-coffee display-3 text-danger mb-2"></i>
+            <h5>4. Pemulihan</h5>
+            <p class="mb-0">
+              Nikmati makanan ringan untuk mengembalikan energi.
+            </p>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="FormRegister" class="py-5 bg-light">
-      <div class="container">
-        <h2 class="text-center mb-4">Formulir Pendaftaran</h2>
-        <div ng-controller="DonorController">
-          <form
-            ng-submit="registerDonor()"
-            class="mx-auto shadow-lg p-4 rounded"
-            style="max-width: 500px; background-color: #fff">
-            <div class="mb-3">
-              <label for="name" class="form-label">Nama:</label>
-              <input
-                type="text"
-                id="name"
-                name="nama"
-                class="form-control"
-                ng-model="donor.nama"
-                required />
+  <section id="FormRegister" class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-4">Formulir Pendaftaran</h2>
+      <div ng-controller="DonorController">
+        <form ng-submit="registerDonor()" class="mx-auto shadow-lg p-4 rounded"
+          style="max-width: 500px; background-color: #fff">
+          <div class="mb-3">
+            <label for="name" class="form-label">Nama:</label>
+            <input type="text" id="name" name="nama" class="form-control" ng-model="donor.nama" required />
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" id="email" name="email" class="form-control" ng-model="donor.email" required />
+          </div>
+          <div class="mb-3">
+            <label for="phone" class="form-label">No. Telepon:</label>
+            <input type="text" id="phone" name="phone" class="form-control" ng-model="donor.phone" required />
+          </div>
+          <div class="mb-3">
+            <label for="golongan" class="form-label">Golongan Darah:</label>
+            <select id="golongan" name="golongan" class="form-select" ng-model="donor.golongan" required>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="AB">AB</option>
+              <option value="O">O</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="message" class="form-label">Pesan:</label>
+            <textarea id="message" name="pesan" class="form-control" ng-model="donor.pesan" rows="4"></textarea>
+          </div>
+          <button type="submit" class="btn btn-danger w-100 btn-lg shadow hover-custom">
+            Daftar
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-4">Galeri Kegiatan</h2>
+      <p class="text-center text-muted fs-5">
+        Berikut adalah dokumentasi kegiatan donor darah yang telah kami selenggarakan.
+      </p>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card shadow hover-scale">
+            <img src="https://th.bing.com/th/id/OIP.zsXlTTB9fGFY2cCM8FfmuwHaE8?w=241&h=180&c=7&r=0&o=5&dpr=1.6&pid=1.7" alt="Kegiatan 1"
+              class="card-img-top fixed-size">
+            <div class="card-body text-center">
+              <h5 class="card-title text-danger">Kegiatan Donor Darah 1</h5>
+              <p class="card-text">Kegiatan yang berlangsung di Kota Jakarta dengan peserta lebih dari 100 orang.</p>
             </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">Email:</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                class="form-control"
-                ng-model="donor.email"
-                required />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card shadow hover-scale">
+            <img src="https://th.bing.com/th/id/OIP._mGbrb2h3WKUp6HvZLzKFgHaFj?w=271&h=203&c=7&r=0&o=5&dpr=1.6&pid=1.7" alt="Kegiatan 2"
+              class="card-img-top fixed-size">
+            <div class="card-body text-center">
+              <h5 class="card-title text-danger">Kegiatan Donor Darah 2</h5>
+              <p class="card-text">Kegiatan sukses diadakan dengan antusiasme pendonor yang tinggi.</p>
             </div>
-            <div class="mb-3">
-              <label for="phone" class="form-label">No. Telepon:</label>
-              <input
-                type="text"
-                id="phone"
-                name="phone"
-                class="form-control"
-                ng-model="donor.phone"
-                required />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card shadow hover-scale">
+            <img src="https://th.bing.com/th/id/OIP.w32yvZsHW8IApje2npf-bwHaEU?w=322&h=187&c=7&r=0&o=5&dpr=1.6&pid=1.7" alt="Kegiatan 3"
+              class="card-img-top fixed-size">
+            <div class="card-body text-center">
+              <h5 class="card-title text-danger">Kegiatan Donor Darah 3</h5>
+              <p class="card-text">Donasi darah ini diselenggarakan untuk memperingati Hari Kesehatan Nasional.</p>
             </div>
-            <div class="mb-3">
-              <label for="golongan" class="form-label">Golongan Darah:</label>
-              <select
-                id="golongan"
-                name="golongan"
-                class="form-select"
-                ng-model="donor.golongan"
-                required>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="AB">AB</option>
-                <option value="O">O</option>
-              </select>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card shadow hover-scale">
+            <img src="https://th.bing.com/th/id/OIP.dfLmJGxbUqBHxaSaWiYxoQHaE7?w=280&h=187&c=7&r=0&o=5&dpr=1.6&pid=1.7" alt="Kegiatan 4"
+              class="card-img-top fixed-size">
+            <div class="card-body text-center">
+              <h5 class="card-title text-danger">Kegiatan Donor Darah 4</h5>
+              <p class="card-text">Kegiatan besar dengan kolaborasi beberapa organisasi kesehatan.</p>
             </div>
-            <div class="mb-3">
-              <label for="message" class="form-label">Pesan:</label>
-              <textarea
-                id="message"
-                name="pesan"
-                class="form-control"
-                ng-model="donor.pesan"
-                rows="4"></textarea>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card shadow hover-scale">
+            <img src="https://th.bing.com/th/id/OIP.a8DZDda3_7gN_0p6l-It3QHaFj?w=268&h=202&c=7&r=0&o=5&dpr=1.6&pid=1.7" alt="Kegiatan 5"
+              class="card-img-top fixed-size">
+            <div class="card-body text-center">
+              <h5 class="card-title text-danger">Kegiatan Donor Darah 5</h5>
+              <p class="card-text">Donasi darah untuk membantu kebutuhan darah darurat di rumah sakit.</p>
             </div>
-            <button
-              type="submit"
-              class="btn btn-danger w-100 btn-lg shadow hover-custom">
-              Daftar
-            </button>
-          </form>
-          <h2>Daftar Pendonor yang Terdaftar</h2>
-          <table border="1">
-            <thead>
-              <tr>
-                <th>Nama</th>
-                <th>Email</th>
-                <th>No. Telepon</th>
-                <th>Golongan Darah</th>
-                <th>Pesan</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="donor in donorsList">
-                <td>{{ donor.nama }}</td>
-                <td>{{ donor.email }}</td>
-                <td>{{ donor.phone }}</td>
-                <td>{{ donor.golongan }}</td>
-                <td>{{ donor.pesan }}</td>
-              </tr>
-            </tbody>
-          </table>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card shadow hover-scale">
+            <img src="https://th.bing.com/th/id/OIP.Y65QcfCAPAMe4iZ6IxI4gAHaEK?w=315&h=180&c=7&r=0&o=5&dpr=1.6&pid=1.7" alt="Kegiatan 6"
+              class="card-img-top fixed-size">
+            <div class="card-body text-center">
+              <h5 class="card-title text-danger">Kegiatan Donor Darah 6</h5>
+              <p class="card-text">Kegiatan penutup tahun dengan jumlah pendonor terbanyak.</p>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="gallery" class="py-5">
-      <div class="container">
-        <h2 class="text-center mb-4">Galeri Kegiatan</h2>
-      </div>
-    </section>
 
-    <footer class="footer text-white py-3 bg-danger">
-      <div class="container text-center">
-        <p>&copy; 2024 SetetesDarah. All rights reserved.</p>
-      </div>
-    </footer>
+  <footer class="footer text-white py-3 bg-danger">
+    <div class="container text-center">
+      <p>&copy; 2024 SetetesDarah. All rights reserved.</p>
+    </div>
+  </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <script src="/backend/frontend/js/app.js"></script>
-  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="/backend/frontend/js/app.js"></script>
+</body>
+
 </html>

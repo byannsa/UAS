@@ -5,6 +5,7 @@ var app = angular.module('donorApp', []);
 app.controller('LoginController', ['$scope', '$http', '$window', function($scope, $http, $window) {
     $scope.user = {};
 
+    // Fungsi untuk melakukan registrasi
     $scope.register = function() {
         $http.post('/api/register', $scope.user)
             .then(function(response) {
@@ -16,6 +17,7 @@ app.controller('LoginController', ['$scope', '$http', '$window', function($scope
             });
     };
 
+    // Fungsi untuk login
     $scope.login = function() {
         $http.post('/api/login', $scope.user)
             .then(function(response) {
@@ -27,12 +29,13 @@ app.controller('LoginController', ['$scope', '$http', '$window', function($scope
                 alert(error.data.message || 'Terjadi kesalahan saat login.');
             });
     };
-}]); 
+}]);
 
-
+// Controller Donor
 app.controller('DonorController', ['$scope', '$http', function($scope, $http) {
     $scope.donor = {}; // Objek untuk data donor
     $scope.donorsList = []; // Array untuk menyimpan daftar pendonor
+    $scope.filterGolongan = ''; // Menyimpan nilai filter golongan darah
 
     // Fungsi untuk mendaftarkan pendonor baru
     $scope.registerDonor = function() {
@@ -58,9 +61,15 @@ app.controller('DonorController', ['$scope', '$http', function($scope, $http) {
                 alert("Gagal mengambil data pendonor.");
             });
     };
-    
+
     // Panggil fungsi untuk mengambil daftar pendonor saat controller diinisialisasi
     $scope.getDonors();
+
+    // Fungsi untuk filter golongan darah
+    $scope.filterByGolongan = function(donor) {
+        if (!$scope.filterGolongan) return true; // Jika filter kosong, tampilkan semua data
+        return donor.golongan === $scope.filterGolongan; // Memastikan golongan darah sesuai dengan filter
+    };
 }]);
 
 // Controller Main
@@ -84,5 +93,3 @@ app.controller('MainController', ['$scope', '$window', '$http', function($scope,
         }
     };
 }]);
-
-
