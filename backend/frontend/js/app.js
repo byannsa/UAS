@@ -93,3 +93,50 @@ app.controller('MainController', ['$scope', '$window', '$http', function($scope,
         }
     };
 }]);
+
+
+const app = angular.module('donorApp', []);
+
+app.controller('DonorController', function ($scope) {
+  // Contoh data awal
+  $scope.donorsList = [
+    { nama: 'John Doe', email: 'john@example.com', notelp: '081234567890', golongan: 'A', pesan: 'Siap donor kapan saja.' },
+    { nama: 'Jane Smith', email: 'jane@example.com', notelp: '082345678901', golongan: 'O', pesan: 'Donor rutin tiap 3 bulan.' },
+  ];
+
+  // Fungsi untuk edit data
+  $scope.editProfil = function (index) {
+    const donor = $scope.donorsList[index];
+    // Memunculkan data di modal Tambah (reuse modal Tambah Data)
+    $scope.donor = angular.copy(donor); // Copy data untuk edit
+    $scope.editMode = true;
+    $scope.editIndex = index;
+
+    const modal = new bootstrap.Modal(document.getElementById('modalTambah'));
+    modal.show();
+  };
+
+  // Fungsi untuk hapus data
+  $scope.hapusProfil = function (index) {
+    if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+      $scope.donorsList.splice(index, 1);
+    }
+  };
+
+  // Fungsi untuk Tambah/Update data
+  $scope.registerDonor = function () {
+    if ($scope.editMode) {
+      // Update data jika editMode aktif
+      $scope.donorsList[$scope.editIndex] = angular.copy($scope.donor);
+      $scope.editMode = false;
+    } else {
+      // Tambahkan data baru
+      $scope.donorsList.push(angular.copy($scope.donor));
+    }
+
+    // Reset form dan tutup modal
+    $scope.donor = {};
+    const modal = bootstrap.Modal.getInstance(document.getElementById('modalTambah'));
+    modal.hide();
+  };
+});
